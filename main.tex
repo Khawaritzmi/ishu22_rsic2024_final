@@ -4,19 +4,21 @@
 \geometry{margin=1in}
 \usepackage{setspace}
 \usepackage{titlesec}
+\usepackage{subcaption}
 
 % Pengaturan heading
 \titleformat{\chapter}[display]
   {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
 \titlespacing*{\chapter}{0pt}{-30pt}{20pt}
 
-% Cover
 \begin{document}
+
+% Cover
 \begin{titlepage}
     \centering
     \vspace*{1cm}
     
-    \includegraphics[width=0.2\textwidth]{unhas_logo.png}\\ % Logo Unhas
+    \includegraphics[width=0.2\textwidth]{images/logo_unhas.png}\\ % Logo Unhas
     \vspace{1cm}
     
     {\Large \textbf{Laporan Project Akhir}}\\
@@ -27,9 +29,13 @@
     Disusun oleh:
     
     \begin{tabbing}
-        Nama Anggota 1 \hspace{1cm} \= NIM 1 \\
-        Nama Anggota 2 \> NIM 2 \\
-        Nama Anggota 3 \> NIM 3 \\
+        Minhajul Yusri Khairi \hspace{3cm} \= H071221006 \\
+        Nurul Alya \> H071221009 \\
+        Kelvin Leonardo Sianipar \> H071221020 \\
+        Trisman Tegar Wiratama \> H071221023 \\
+        Joy Abrian Rantepasang \> H071221030 \\
+        Izzata Clarissa Salsabila \> H071221065 \\
+        Mifthahul Hoiri Bachrudin Basir \> H071221072 \\
         % Tambahkan anggota sesuai kebutuhan
     \end{tabbing}
     
@@ -44,64 +50,12 @@
 \tableofcontents
 \newpage
 
-% Chapter 1: Project Charter
-\chapter{Project Charter}
-\section{Background}
-% Tulis latar belakang proyek
-
-\section{Objectives}
-% Tulis tujuan proyek
-
-\section{Scope}
-% Tulis ruang lingkup proyek
-
-% Chapter 2: Methods
-\chapter{Methods}
-\section{Data Collection}
-% Jelaskan cara pengumpulan data dan sumber data
-
-\section{Data Explanation}
-% Jelaskan atribut atau fitur pada data yang digunakan
-
-\section{Algorithm or Model}
-% Deskripsi algoritma atau model yang digunakan
-
-\section{Testing}
-% Penjelasan tentang metode dan strategi pengujian yang digunakan
-\subsection{Testing Procedures}
-% Langkah-langkah pengujian
-\subsection{Testing Metrics}
-% Metrik pengujian yang digunakan untuk mengukur performa
-
-\section{Evaluation Metrics}
-% Metrik evaluasi yang digunakan untuk mengukur keberhasilan model
-
-% Chapter 3: Problem
-\chapter{Problem}
-% Deskripsi masalah yang ingin diselesaikan dengan sistem
-
-% Chapter 4: Intelligence System
-\chapter{Intelligence System}
-\section{System Architecture}
-% Deskripsi arsitektur sistem
-
-\section{System Workflow}
-% Alur kerja atau proses dalam sistem
-
-% Chapter 5: Project Documentation
-\chapter{Project Documentation}
-\section{Implementation}
-% Deskripsi implementasi teknis
-
-\section{Results and Discussion}
-% Hasil dan pembahasan
-
-\section{Conclusion}
-% Kesimpulan dari proyek
-
-\newpage
-\appendix
-\chapter{Appendix}
-% Lampiran jika ada
+% Include chapters from the "chapters" folder
+\input{chapters/chapter1}
+\input{chapters/chapter2}
+\input{chapters/chapter3}
+\input{chapters/chapter4}
+\input{chapters/chapter5}
+\input{chapters/appendix}
 
 \end{document}
