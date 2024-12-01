@@ -4,6 +4,10 @@
 %=================================================================
 \documentclass[journal,article,submit,pdftex,moreauthors]{Definitions/mdpi} 
 \usepackage{pgf-pie}
+\usepackage[justification=centering]{caption}
+\usepackage{graphicx} % Untuk gambar
+\usepackage{float} % Untuk kontrol posisi gambar
+
 %--------------------
 % Class Options:
 %--------------------
@@ -80,7 +84,7 @@
 %\newcommand{\orcidauthorB}{0000-0000-0000-000X} % Add \orcidB{} behind the author's name
 
 % Authors, for the paper (add full first names)
-\Author{Rasyad Bimasatya$^{1}$, Mario Valerian Rante Ta’dung$^{2}$, Dewa Ayu Eka Natalia Pratiwi$^{3}$, Rahmatia$^{4}$, Evan Pandu Nata$^{5}$, A M Fauzan Baihaqi T$^{6}$, and A. Afif Alhaq$^{7}$}
+\Author{Rasyad Bimasatya$^{1}$, Mario Valerian Rante Ta’dung$^{1}$, Dewa Ayu Eka Natalia Pratiwi$^{1}$, Rahmatia$^{1}$, Evan Pandu Nata$^{1}$, A M Fauzan Baihaqi T$^{1}$, and A. Afif Alhaq$^{1}$}
 
 %\longauthorlist{yes}
 
@@ -93,14 +97,14 @@
 
 % Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
 \address{%
-$^{*}$ \quad Information System, Department of Mathematics, Faculty of Mathematics and Natural Science, Hasanuddin University \\}
+$^{1}$ \quad Sistem Informasi, Departemen Matematika, Fakultas Matematika dan Ilmu Pengetahuan Alam, Universitas Hasanuddin \\}
 
 % Contact information of the corresponding author
-%\corres{Correspondence: e-mail@e-mail.com; Tel.: (optional; include country code; if there are multiple corresponding authors, add author initials) +xx-xxxx-xxx-xxxx (F.L.)}
+\corres{Emasil Korespondensi: bimasatyar22h@student.unhas.ac.id}
 
 % Current address and/or shared authorship
-%\firstnote{Current address: Affiliation.}  % Current address should not be the same as any items in the Affiliation section.
-%\secondnote{These authors contributed equally to this work.}
+\firstnote{Alamat Saat Ini: Jl. Perintis Kemerdekaan Km.10 Tamalanrea, Makassar, Sulawesi Selatan, Indonesia.}  % Current address should not be the same as any items in the Affiliation section.
+\secondnote{Penulis-penulis ini berkontribusi secara setara terhadap karya ini.}
 % The commands \thirdnote{} till \eighthnote{} are available for further notes
 
 %\simplesumm{} % Simple summary
@@ -108,10 +112,12 @@ $^{*}$ \quad Information System, Department of Mathematics, Faculty of Mathemati
 %\conference{} % An extended version of a conference paper
 
 % Abstract (Do not insert blank lines, i.e. \\) 
-% \abstract{A single paragraph of about 200 words maximum. For research articles, abstracts should give a pertinent overview of the work. We strongly encourage authors to use the following style of structured abstracts, but without headings: (1) Background: place the question addressed in a broad context and highlight the purpose of the study; (2) Methods: describe briefly the main methods or treatments applied; (3) Results: summarize the article's main findings; (4) Conclusions: indicate the main conclusions or interpretations. The abstract should be an objective representation of the article, it must not contain results which are not presented and substantiated in the main text and should not exaggerate the main conclusions.}
+\abstract{
+Penyakit daun jagung adalah salah satu ancaman utama dalam pertanian yang dapat menurunkan hasil panen secara signifikan. Deteksi dini terhadap penyakit ini penting untuk mencegah penyebaran dan mengurangi kerugian. Namun, metode deteksi manual sering kali memakan waktu dan tidak cukup akurat. Untuk itu, penelitian ini mengembangkan aplikasi \textit{LeafScan} yang memanfaatkan teknologi \textit{deep learning} untuk deteksi penyakit daun jagung secara otomatis dan cepat. Model deteksi objek yang digunakan adalah YOLOv8, yang terkenal dengan efisiensi dan akurasi tinggi dalam mendeteksi objek. Untuk mengatasi tantangan dalam mendeteksi objek kecil, diterapkan teknik \textit{Slicing Aided Hyper Inference} (SAHI), yang membagi gambar menjadi potongan-potongan kecil tumpang tindih, meningkatkan presisi deteksi dan menggabungkan hasilnya menggunakan teknik \textit{Non-Maximum Suppression} (NMS). Hasil penelitian menunjukkan peningkatan dalam \textit{precision}, \textit{recall}, dan \textit{mean Average Precision} (mAP), khususnya untuk penyakit \textit{blight}, meskipun deteksi untuk penyakit \textit{rust} perlu ditingkatkan. Aplikasi ini, yang dikembangkan dengan antarmuka \textit{Flutter}, diharapkan dapat membantu petani mendeteksi penyakit dengan lebih cepat dan akurat.
+}
 
 % Keywords
-% \keyword{keyword 1; keyword 2; keyword 3 (List three to ten pertinent keywords specific to the article; yet reasonably common within the subject discipline.)} 
+\keyword{Deteksi Penyakit Daun Jagung; YOLOv8; Deep Learning; Slicing Aided Hyper Inference (SAHI); Deteksi Objek; Flutter;}
 
 % The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
 %\PACS{J0101}
@@ -214,10 +220,39 @@ Berikut adalah penjelasan mengenai masing-masing kelas dalam dataset ini:
 
 \subsection{Algoritma atau Model}
 \begin{itemize}
-    \item {\textbf{YOLOv8l}}: \\
-   YOLOv8 yang dirilis pada Januari 2023 oleh Ultralytics, menawarkan berbagai versi skala untuk deteksi objek, mulai dari YOLOv8n (nano) hingga YOLOv8x (extra-large). Arsitekturnya mirip dengan YOLOv5, namun mengganti CSPLayer dengan modul C2f (cross-stage partial bottleneck dengan dua konvolusi) untuk meningkatkan akurasi deteksi. YOLOv8 mengadopsi model tanpa anchor dengan head yang dipisah untuk menangani tugas objectness, classification, dan regression secara mandiri, yang berkontribusi pada peningkatan akurasi model secara keseluruhan. Pada lapisan output, YOLOv8 menggunakan fungsi sigmoid untuk menghitung objectness score dan fungsi softmax untuk class probabilities. Model ini juga memanfaatkan loss functions CIoU dan DFL untuk bounding-box dan binary cross-entropy untuk klasifikasi, yang meningkatkan performa deteksi, terutama pada objek yang lebih kecil. Dengan kecepatan dan efisiensi yang tinggi, YOLOv8 menjadi model yang sangat andal dalam deteksi objek. \cite{Terven2023}
+    \item {\textbf{YOLOv8}}: \\
+   \hspace*{2em}YOLOv8 yang dirilis pada Januari 2023 oleh Ultralytics, menawarkan berbagai versi skala untuk deteksi objek, mulai dari YOLOv8n (nano) hingga YOLOv8x (extra-large). Arsitekturnya mirip dengan YOLOv5, namun mengganti CSPLayer dengan modul C2f (cross-stage partial bottleneck dengan dua konvolusi) untuk meningkatkan akurasi deteksi. YOLOv8 mengadopsi model tanpa anchor dengan head yang dipisah untuk menangani tugas objectness, classification, dan regression secara mandiri, yang berkontribusi pada peningkatan akurasi model secara keseluruhan. Dengan kecepatan dan efisiensi yang tinggi, YOLOv8 menjadi model yang sangat andal dalam deteksi objek \cite{Terven2023}. Berikut penjelasan lengkap dari arsitektur YoloV8.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{Images/yolov8.png}
+        \caption{\centering Arsitektur YoloV8 \cite{Terven2023}}
+        \label{fig:activity-upload-gambar}
+    \end{figure}
+\begin{enumerate}
+    \item \textbf{Backbone} \\
+    \hspace*{2em}Backbone merupakan bagian pertama dalam arsitektur YOLOv8 yang bertanggung jawab untuk mengekstraksi fitur utama dari input gambar. Proses ini mencakup penurunan resolusi gambar secara bertahap untuk menghasilkan representasi fitur yang lebih mendalam dan kompleks, sambil meningkatkan jumlah channel untuk memperkaya informasi. Backbone terdiri dari dua bagian utama, yaitu Stem Layer dan Stage Layers.
+    
+    \hspace*{2em}Pada bagian Stem Layer, YOLOv8 memanfaatkan tiga lapisan ConvModule yang dirancang untuk memproses gambar awal yang berukuran 640x640x3. Setiap ConvModule terdiri dari operasi konvolusi 2D untuk menangkap pola fitur dasar, batch normalization untuk menstabilkan distribusi output, dan fungsi aktivasi SiLU untuk menambahkan non-linearitas. Lapisan ini secara bertahap mengurangi resolusi gambar sambil meningkatkan jumlah channel fitur hingga menghasilkan keluaran berukuran 320x320x64.
+    
+    \hspace*{2em}Setelah melewati Stem Layer, Backbone melanjutkan proses melalui empat Stage Layers. Pada Stage Layer 1, model menggunakan CSPResLayer untuk menangkap fitur pada resolusi tinggi dengan jumlah channel sebesar 128, menghasilkan keluaran berukuran 160x160x128. Di tahap berikutnya, yaitu Stage Layer 2, resolusi gambar kembali dikurangi menjadi 80x80, sementara jumlah channel meningkat menjadi 256. Proses ini terus berlangsung hingga Stage Layer 4, di mana ukuran keluaran akhir Backbone adalah 20x20x1024. Progresi ini memastikan bahwa Backbone menangkap fitur dari berbagai tingkat resolusi, mulai dari detail lokal hingga pola global yang kompleks.
+
+    \item \textbf{Neck} \\
+    \hspace*{2em}Setelah fitur diekstraksi oleh Backbone, bagian Neck bertugas untuk menggabungkan informasi fitur dari berbagai tingkat resolusi. Hal ini bertujuan untuk memperkuat kemampuan deteksi multi-skala, sehingga YOLOv8 dapat mendeteksi objek kecil, sedang, maupun besar dengan akurat. Neck dirancang dengan dua jalur utama, yaitu Top-Down Path dan Bottom-Up Path.
+    
+    \hspace*{2em}Pada jalur Top-Down Path, fitur yang dihasilkan oleh Backbone pada resolusi rendah, seperti 20x20x1024, di-upsample menjadi resolusi yang lebih tinggi, misalnya 40x40x512. Proses upsampling ini memungkinkan penggabungan fitur dari resolusi rendah dengan fitur dari Backbone yang memiliki resolusi lebih tinggi, seperti 40x40x512. Setelah resolusi fitur diselaraskan, operasi concatenation dilakukan untuk mengintegrasikan informasi dari kedua skala. Hasil penggabungan ini kemudian diproses lebih lanjut menggunakan ConvModule untuk menyelaraskan jumlah channel dan memperbaiki kualitas fitur. Sebagai langkah tambahan, CSPResLayer digunakan untuk menonjolkan fitur yang penting, dengan memanfaatkan mekanisme residual yang membantu mempertahankan informasi awal.
+    
+    \hspace*{2em}Selain jalur Top-Down Path, Neck juga mencakup jalur Bottom-Up Path yang bekerja dengan menyusun ulang fitur ke resolusi yang lebih rendah. Tujuan jalur ini adalah memastikan bahwa fitur dari skala besar dan kecil diproses bersama-sama untuk mendukung deteksi objek dengan ukuran yang bervariasi.
+
+    \item \textbf{Head} \\
+    \hspace*{2em}Bagian terakhir dari YOLOv8 adalah Head, yang bertugas menghasilkan prediksi akhir, termasuk regresi bounding box, klasifikasi objek, dan confidence score. Pada bagian ini, YOLOv8 menggunakan PPYOLOE Layer yang didukung oleh blok RepVGGBlock. PPYOLOE Layer bertanggung jawab memproses fitur dari Neck dengan efisiensi tinggi, sekaligus menyelaraskan fitur untuk mempersiapkan tahap akhir prediksi.
+    
+    \hspace*{2em}Pada tahap prediksi, Head menggunakan dua lapisan Conv2D. Lapisan pertama digunakan untuk menghasilkan prediksi klasifikasi objek, sementara lapisan kedua bertugas melakukan regresi bounding box. Setiap fitur dari berbagai resolusi, seperti P3, P4, dan P5, diproses secara terpisah untuk memastikan bahwa prediksi dilakukan dengan mempertimbangkan skala resolusi yang sesuai. Desain ini memungkinkan YOLOv8 mendeteksi objek dari berbagai ukuran dengan lebih akurat. Salah satu keunggulan Head YOLOv8 adalah pendekatan anchor-free-nya, yang menyederhanakan proses pelatihan dan meningkatkan efisiensi.
+\end{enumerate}
+
+   
+  
     \item {\textbf{Penggunaan SAHI dalam Model}}\\
-    Slicing Aided Hyper Inference (SAHI) menggunakan teknik pemotongan selama proses inferensi \cite{AKYON2022}. Gambar asli \( I \) dibagi menjadi beberapa potongan tumpang tindih dengan ukuran \( M \times N \), yang disebut \( P_{I1}, P_{I2}, \dots, P_{Il} \). Setiap potongan kemudian diubah ukurannya dengan menjaga rasio aspek gambar. Setelah itu, deteksi objek dilakukan pada setiap potongan secara terpisah. Jika diperlukan, full-inference (FI) juga bisa dilakukan dengan gambar asli untuk mendeteksi objek yang lebih besar. Hasil prediksi dari potongan-potongan ini dan, jika ada, hasil FI digabungkan kembali ke dalam gambar asli menggunakan teknik Non-Maximum Suppression (NMS). Pada NMS, kotak yang memiliki nilai Intersection over Union (IoU) lebih besar dari ambang batas yang ditentukan \( T_m \) akan dipadankan, dan deteksi dengan probabilitas di bawah ambang batas \( T_d \) akan dihapus.
+    \hspace*{2em}Slicing Aided Hyper Inference (SAHI) menggunakan teknik pemotongan selama proses inferensi \cite{AKYON2022}. Gambar asli \( I \) dibagi menjadi beberapa potongan tumpang tindih dengan ukuran \( M \times N \), yang disebut \( P_{I1}, P_{I2}, \dots, P_{Il} \). Setiap potongan kemudian diubah ukurannya dengan menjaga rasio aspek gambar. Setelah itu, deteksi objek dilakukan pada setiap potongan secara terpisah. Jika diperlukan, full-inference (FI) juga bisa dilakukan dengan gambar asli untuk mendeteksi objek yang lebih besar. Hasil prediksi dari potongan-potongan ini dan, jika ada, hasil FI digabungkan kembali ke dalam gambar asli menggunakan teknik Non-Maximum Suppression (NMS). Pada NMS, kotak yang memiliki nilai Intersection over Union (IoU) lebih besar dari ambang batas yang ditentukan \( T_m \) akan dipadankan, dan deteksi dengan probabilitas di bawah ambang batas \( T_d \) akan dihapus.
 
     
 \end{itemize}
@@ -368,7 +403,7 @@ Aplikasi Roboflow digunakan untuk melakukan anotasi pada data untuk menandai sem
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Sistem Kecerdasan}
-Sistem kecerdasan pada aplikasi \textit{LeafScan} didasarkan pada penerapan teknologi \textit{deep learning} untuk mendeteksi penyakit pada daun jagung secara otomatis melalui gambar yang diunggah oleh pengguna. Sistem ini memanfaatkan model \textit{You Only Look Once} v8 (YOLOv8) yang dikombinasikan dengan algoritma \textit{Slicing Aided Hyper Inference} (SAHI) untuk meningkatkan akurasi dan efisiensi deteksi objek. YOLOv11, yang dikenal dengan kemampuannya untuk mendeteksi objek \cite{YIN2020}, digunakan untuk mendeteksi penyakit pada daun jagung. Sementara itu, SAHI membantu dalam meningkatkan kemampuan model dalam menangani gambar dengan objek yang lebih kecil atau lebih kompleks, serta meningkatkan akurasi prediksi dengan melakukan pemotongan gambar untuk memaksimalkan deteksi \cite{AKYON2022}.
+Sistem kecerdasan pada aplikasi \textit{LeafScan} didasarkan pada penerapan teknologi \textit{deep learning} untuk mendeteksi penyakit pada daun jagung secara otomatis melalui gambar yang diunggah oleh pengguna. Sistem ini memanfaatkan model \textit{You Only Look Once} v8 (YOLOv8) yang dikombinasikan dengan algoritma \textit{Slicing Aided Hyper Inference} (SAHI) untuk meningkatkan akurasi dan efisiensi deteksi objek. YOLOv8, yang dikenal dengan kemampuannya untuk mendeteksi objek \cite{YIN2020}, digunakan untuk mendeteksi penyakit pada daun jagung. Sementara itu, SAHI membantu dalam meningkatkan kemampuan model dalam menangani gambar dengan objek yang lebih kecil atau lebih kompleks, serta meningkatkan akurasi prediksi dengan melakukan pemotongan gambar untuk memaksimalkan deteksi \cite{AKYON2022}.
 
 \subsection{Arsitektur Sistem}
 
@@ -423,7 +458,7 @@ Untuk memperjelas alur kerja aplikasi, berikut ini adalah \textit{activity diagr
     
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{Images/activity_upload.png}
+        \includegraphics[width=0.5\textwidth]{Images/activity_upload.png}
         \caption{\centering Diagram Aktivitas untuk Mengupload Gambar}
         \label{fig:activity-upload-gambar}
     \end{figure}
@@ -434,7 +469,7 @@ Untuk memperjelas alur kerja aplikasi, berikut ini adalah \textit{activity diagr
     % Uncomment and add the appropriate figure if you have an activity diagram for detecting diseases
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{Images/activity_detect.png}
+        \includegraphics[width=0.5\textwidth]{Images/activity_detect.png}
         \caption{\centering Diagram Aktivitas untuk Mendeteksi Penyakit Daun Jagung}
         \label{fig:activity-detect-disease}
     \end{figure}
@@ -444,19 +479,19 @@ Untuk memperjelas alur kerja aplikasi, berikut ini adalah \textit{activity diagr
     
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{Images/activity_recomendation.png}
+        \includegraphics[width=0.5\textwidth]{Images/activity_recomendation.png}
         \caption{\centering Diagram Aktivitas untuk Memberi Rekomendasi Penanganan}
         \label{fig:activity-rekomendasi-penanganan}
     \end{figure}
 
     \item \textbf{Activity Diagram - Melihat Riwayat Deteksi Penyakit} \\
-    Pada Gambar \ref{fig:activity-view-history}, diperlihatkan alur aktivitas untuk proses \textit{Melihat Riwayat Deteksi Penyakit}. Proses ini dimulai dengan sistem menampilkan daftar riwayat penyakit yang telah terdeteksi sebelumnya. Pengguna kemudian dapat memilih salah satu riwayat deteksi dari daftar untuk melihat lebih detail. Setelah riwayat dipilih, sistem menampilkan informasi rinci tentang hasil deteksi dan rekomendasi penanganan yang telah diberikan sebelumnya.
+    Pada Gambar \ref{fig:activity-view-history1}, diperlihatkan alur aktivitas untuk proses \textit{Melihat Riwayat Deteksi Penyakit}. Proses ini dimulai dengan sistem menampilkan daftar riwayat penyakit yang telah terdeteksi sebelumnya. Pengguna kemudian dapat memilih salah satu riwayat deteksi dari daftar untuk melihat lebih detail. Setelah riwayat dipilih, sistem menampilkan informasi rinci tentang hasil deteksi dan rekomendasi penanganan yang telah diberikan sebelumnya.
     
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{Images/activity_history.png}
+        \includegraphics[width=0.5\textwidth]{Images/activity_history.png}
         \caption{\centering Diagram Aktivitas untuk Melihat Riwayat Deteksi Penyakit}
-        \label{fig:activity-view-history}
+        \label{fig:activity-view-history1}
     \end{figure}
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -465,6 +500,10 @@ Untuk memperjelas alur kerja aplikasi, berikut ini adalah \textit{activity diagr
 \subsection{Hasil Training}
 \begin{itemize}
     \item {\textbf{Grafik Training}}: \\ 
+      \hspace*{2em}Grafik ini menunjukkan berbagai metrik dan loss selama proses pelatihan model. 
+        Grafik pada baris pertama menampilkan \textit{train/box\_loss}, \textit{train/cls\_loss}, dan \textit{train/obj\_loss}, yang semuanya menunjukkan tren penurunan seiring dengan meningkatnya jumlah epoch, menandakan bahwa model semakin baik dalam mempelajari data pelatihan. 
+        Baris kedua memperlihatkan metrik untuk data validasi, seperti \textit{val/box\_loss}, \textit{val/cls\_loss}, dan \textit{val/obj\_loss}, yang juga menunjukkan penurunan. 
+        Selain itu, metrik performa seperti \textit{precision}, \textit{recall}, \textit{mAP@0.5}, dan \textit{mAP@0.5:0.95} cenderung meningkat dan stabil di akhir pelatihan, menandakan peningkatan kemampuan model dalam mendeteksi dan mengenali objek dengan lebih akurat.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{Images/results.png}
@@ -472,16 +511,18 @@ Untuk memperjelas alur kerja aplikasi, berikut ini adalah \textit{activity diagr
         \label{fig:activity-view-history}
     \end{figure}
     \item {\textbf{Precision}}: \\ 
+       \hspace*{2em}Grafik ini menunjukkan hubungan antara precision (akurasi prediksi model dalam mendeteksi suatu kelas) dan confidence (tingkat keyakinan model pada prediksi yang dibuat), di mana precision yang tinggi menunjukkan prediksi model lebih tepat pada tingkat confidence tertentu. Pada grafik ini, kelas blight memiliki kurva precision yang tinggi pada confidence sekitar 0.6 hingga 1.0, menunjukkan performa yang baik dalam mendeteksi kelas ini, sementara kelas rust memiliki kurva precision yang lebih rendah, menandakan performa model yang buruk untuk mendeteksi kelas tersebut di sebagian besar tingkat confidence. Kurva all classes menggambarkan hasil gabungan dari semua kelas yang terlibat dalam evaluasi.
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{Images/P_curve.png}
+        \includegraphics[width=0.7\textwidth]{Images/P_curve.png}
         \caption{\centering Grafik menggambarkan nilai precision selama pelatihan model YOLOv8}
         \label{fig:activity-view-history}
     \end{figure}
     \item {\textbf{Recall}}: \\ 
+    \hspace*{2em}Grafik ini menggambarkan hubungan antara recall (kemampuan model untuk mendeteksi semua instance dari suatu kelas) dan confidence, di mana recall yang tinggi menunjukkan model mampu mendeteksi sebagian besar instance dari kelas tersebut. Pada grafik ini, kelas blight memiliki recall yang lebih stabil, meskipun cenderung menurun pada tingkat confidence yang lebih tinggi, sedangkan kelas rust memiliki recall yang rendah, menunjukkan bahwa model kesulitan mendeteksi instance dari kelas ini secara keseluruhan.
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{Images/R_curve.png}
+        \includegraphics[width=0.7\textwidth]{Images/R_curve.png}
         \caption{\centering Grafik menggambarkan nilai recall selama pelatihan model YOLOv8}
         \label{fig:activity-view-history}
     \end{figure}
@@ -495,60 +536,154 @@ Berikut ini adalah deskripsi dari masing-masing bagian \textit{frontend} dan \te
     Pengembangan \textit{frontend} aplikasi \textit{LeafScan} menggunakan \textit{framework Flutter} untuk menciptakan antarmuka yang intuitif dan responsif. Beberapa fitur \textit{frontend} yang sudah dikerjakan antara lain:
 
      \begin{itemize}
-                \begin{figure}[H]
+        \begin{figure}[H]
             \centering
-            \begin{minipage}{0.45\textwidth}
+            \begin{minipage}{0.3\textwidth}
                 \centering
                 \includegraphics[width=0.8\textwidth]{Images/login_view.png}
                 \caption{\centering Tampilan Login}
                 \label{fig:login-view}
             \end{minipage}
             \hfill
-            \begin{minipage}{0.45\textwidth}
+            \begin{minipage}{0.3\textwidth}
                 \centering
                 \includegraphics[width=0.8\textwidth]{Images/register_view.png}
                 \caption{\centering Tampilan Register}
                 \label{fig:register-view}
             \end{minipage}
+            \hfill
+            \begin{minipage}{0.3\textwidth}
+                \centering
+                \includegraphics[width=0.8\textwidth]{Images/daun_sehat.png}
+                \caption{\centering Tampilan Daun Sehat}
+                \label{fig:register-view}
+            \end{minipage}
         \end{figure}
-        \item Tampilan Deteksi
+        
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.3\textwidth]{Images/detection_view.png}
-            \caption{\centering Tampilan Hasil Deteksi}
-            \label{fig:activity-view-history}
+            \begin{minipage}{0.3\textwidth}
+                \centering
+                \includegraphics[width=0.9\textwidth]{Images/hasil_deteksi.png}
+                \caption{Tampilan Hasil Deteksi}
+                \label{fig:detection-view}
+           \end{minipage}
+            \hfill
+            \begin{minipage}{0.3\textwidth}
+                \centering
+                \includegraphics[width=0.9\textwidth]{Images/detail_penyakit.png}
+                \caption{Tampilan Detail Penyakit}
+                \label{fig:detail-disease-view}
+            \end{minipage}
+            \hfill
+            \begin{minipage}{0.3\textwidth}
+                \centering
+                \includegraphics[width=0.9\textwidth]{Images/history_view.png}
+                \caption{Tampilan Riwayat Deteksi}
+                \label{fig:history-view}
+            \end{minipage}
+            \label{fig:combined-views}
         \end{figure}
-        \item Tampilan Detail Penyakit
+
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.3\textwidth]{Images/detail_disease_view.png}
-            \caption{\centering Tampilan Detail Penyakit}
-            \label{fig:activity-view-history}
-        \end{figure}
-        \item Tampilan Riwayat Deteksi
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.3\textwidth]{Images/history_view.png}
-            \caption{\centering Tampilan Riwayat Deteksi}
-            \label{fig:activity-view-history}
+            \begin{minipage}{0.4\textwidth}
+                \centering
+                \includegraphics[width=0.9\textwidth]{Images/not_leaf.png}
+                \caption{\centering Tampilan Deteksi Bukan Daun}
+                \label{fig:not-leaf}
+           \end{minipage}
+            \hfill
+            \begin{minipage}{0.4\textwidth}
+                \centering
+                \includegraphics[width=0.9\textwidth]{Images/splash screen.jpeg}
+                \caption{\centering Splash Screen}
+                \label{fig:splash-screen}
+            \end{minipage}
         \end{figure}
     \end{itemize}
 
     \item \textbf{Backend} \\
     Pengembangan \textit{backend} aplikasi \textit{LeafScan} dilakukan untuk mendukung proses deteksi penyakit dan penyimpanan data secara efisien. Berikut komponen \textit{backend} yang sudah dikerjakan yaitu:
 
-    \begin{itemize}
-        \item Pengujian API
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.8\textwidth]{Images/api_endpoint.png}
-            \caption{\centering \textit{Response} pengujian API}
-            \label{fig:activity-view-history}
-        \end{figure}
+    \textbf{- Dokumentasi API}
+
+    \begin{itemize}[left=0pt, label={}]
+        \item \textbf{URL:} \texttt{/predict-image}
+        \item \textbf{Method:} \texttt{POST}
+        \item \textbf{Request Parameters:}
+        \begin{itemize}
+            \item \texttt{file} (\textit{required}): Berkas gambar yang digunakan untuk mendeteksi penyakit daun jagung. \\
+            \textit{Format yang didukung}: JPEG, PNG.
+        \end{itemize}
+    
+        \item \textbf{Response:}
+        \begin{itemize}
+            \item \texttt{disease}: Kamus yang berisi detail tentang berbagai penyakit daun jagung:
+            \begin{itemize}
+                \item \texttt{gray}:
+                \begin{itemize}
+                    \item \texttt{Definisi}: Deskripsi singkat mengenai penyakit ini.
+                    \item \texttt{Diagnosa}: Tanda-tanda diagnostik penyakit.
+                    \item \texttt{Saran}: Tindakan atau solusi yang disarankan.
+                \end{itemize}
+                \item \texttt{rust}:
+                \begin{itemize}
+                    \item \texttt{Definisi}: Deskripsi singkat mengenai penyakit ini.
+                    \item \texttt{Diagnosa}: Tanda-tanda diagnostik penyakit.
+                    \item \texttt{Saran}: Tindakan atau solusi yang disarankan.
+                \end{itemize}
+                \item \texttt{blight}:
+                \begin{itemize}
+                    \item \texttt{Definisi}: Deskripsi singkat mengenai penyakit ini.
+                    \item \texttt{Diagnosa}: Tanda-tanda diagnostik penyakit.
+                    \item \texttt{Saran}: Tindakan atau solusi yang disarankan.
+                \end{itemize}
+            \end{itemize}
+            \item \texttt{status\_code} (integer): Kode status HTTP dari permintaan.
+            \item \texttt{predicted\_image} (string): String gambar hasil prediksi dalam format Base64.
+            \item \texttt{timestamp} (string): Waktu kapan prediksi dilakukan.
+            \item \texttt{iscorn} (boolean): Menunjukkan apakah gambar teridentifikasi terkait jagung.
+        \end{itemize}
     \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{Images/response json.png}
+        \caption{\centering \textit{Response} pengujian API}
+        \label{fig:apiEndpoint}
+    \end{figure}
 \end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Diskusi}
+\subsection{Implementasi SAHI dalam proses inferensi}
+Berdasarkan hasil evaluasi model, terlihat bahwa objek penyakit berukuran kecil masih cukup sulit untuk dideteksi secara akurat. Hal ini disebabkan oleh keterbatasan model dalam mengenali detail-detail kecil pada gambar. Salah satu upaya yang telah dilakukan untuk mengatasi masalah ini adalah dengan menurunkan confidence threshold untuk meningkatkan probabilitas sebuah objek penyakit terdeteksi. Namun, pendekatan ini memiliki kelemahan, yaitu meningkatkan risiko terjadinya kesalahan prediksi (false positives), di mana model mendeteksi objek yang sebenarnya tidak ada.
 
+Dalam mengatasi kelemahan ini, implementasi Slicing Aided Hyper Inference (SAHI) telah dilakukan. Teknik SAHI membantu model dalam melakukan proses inferensi dengan cara membagi gambar menjadi beberapa subset gambar yang lebih kecil (proses slicing). Dengan memperkecil skala tiap subset, SAHI dapat memperbesar ukuran relatif dari objek penyakit pada subset tersebut, sehingga model lebih mudah mengenalinya. Hasil evaluasi menunjukkan bahwa teknik ini secara signifikan meningkatkan kemampuan model dalam mendeteksi objek penyakit kecil, meskipun model tersebut belum sepenuhnya optimal.
 
+Namun, penggunaan SAHI juga memiliki beberapa konsekuensi, salah satunya adalah peningkatan waktu proses inferensi. Hal ini terjadi karena proses slicing menghasilkan sejumlah besar subset gambar, yang jumlahnya berbanding lurus dengan ukuran asli gambar. Semakin besar ukuran gambar, semakin banyak subset yang dihasilkan, sehingga memerlukan waktu pemrosesan lebih lama.
+
+ \begin{figure}[H]
+            \centering
+            \begin{minipage}{0.45\textwidth}
+                \centering
+                \includegraphics[width=0.8\textwidth]{Images/predicted_0.jpg}
+                \caption{\centering Hasil Deteksi Model YoloV8 tanpa SAHI}
+                \label{fig:login-view}
+            \end{minipage}
+            \hfill
+            \begin{minipage}{0.45\textwidth}
+                \centering
+                \includegraphics[width=0.8\textwidth]{Images/predicted_sahi.png}
+                \caption{\centering Hasil Deteksi Model YoloV8 setelah SAHI diimplementasikan}
+                \label{fig:register-view}
+            \end{minipage}
+        \end{figure}
+\section{Kesimpulan}
+Penelitian ini bertujuan untuk mengukur akurasi diagnosis penyakit daun jagung yang dihasilkan oleh aplikasi \textit{LeafScan} dibandingkan metode manual. Hasil menunjukkan bahwa aplikasi berhasil memenuhi tujuan ini dengan model yang mampu mempelajari data pelatihan secara efektif, sebagaimana ditunjukkan oleh tren penurunan loss dan peningkatan \textit{precision}, \textit{recall}, serta mAP selama proses pelatihan dan validasi. Dengan demikian, \textit{LeafScan} berpotensi menjadi alat yang bermanfaat bagi petani dalam mendeteksi penyakit daun jagung dengan lebih cepat dan akurat.
+
+Hasil evaluasi menunjukkan bahwa performa model cukup baik dalam mendeteksi kelas penyakit tertentu, seperti \textit{blight}, dengan \textit{precision} dan \textit{recall} yang tinggi pada tingkat \textit{confidence} antara 0.6 hingga 1.0. Namun, terdapat kelemahan dalam mendeteksi penyakit seperti \textit{rust} yang memiliki performa lebih rendah. Masalah ini terkait dengan kesulitan model dalam mengenali objek kecil. Implementasi teknik \textit{Slicing Aided Hyper Inference} (SAHI) secara signifikan meningkatkan deteksi objek kecil, tetapi diiringi oleh peningkatan waktu proses inferensi karena kebutuhan pemrosesan lebih banyak subset gambar.
+
+Untuk pengembangan di masa depan, penelitian ini merekomendasikan optimalisasi teknik SAHI guna mengurangi waktu proses inferensi tanpa mengorbankan akurasi deteksi. Selain itu, pengembangan model yang lebih sensitif terhadap objek kecil atau integrasi model berbasis arsitektur yang lebih kompleks seperti \textit{transformers} dapat dipertimbangkan. Uji coba lapangan dengan melibatkan petani secara langsung juga perlu dilakukan untuk mengukur penerimaan aplikasi serta manfaatnya dalam kondisi nyata, sekaligus mendapatkan umpan balik untuk penyempurnaan aplikasi.
 %=====================================
 % References, variant A: external bibliography
 %=====================================
