@@ -573,6 +573,10 @@
 \def\@abstract{}
 \renewcommand{\abstract}[1]{\gdef\@abstract{#1}}
 \def\@externaleditor{}
+\newcommand{\abstrak}[1]{\def\@abstrak{#1}}
+\newcommand{\@abstrak}{}
+\newcommand{\katakunci}[1]{\def\@katakunci{#1}}
+\newcommand{\@katakunci}{}
 \newcommand{\externaleditor}[1]{\gdef\@externaleditor{#1}}
 \def\@LSID{}
 \newcommand{\LSID}[1]{\gdef\@LSID{#1}}
@@ -1086,11 +1090,31 @@
 	\vspace{12pt}
 	\par
 }
-\ifthenelse{\equal{\@abstract}{\@empty}}{}{
-	\noindent\textbf{Abstract:\space}\@abstract
-	\vspace{12pt}
-	\par
+\ifthenelse{\equal{\@abstrak}{\@empty}}{}{
+    \noindent\textbf{\textit{Abstrak:}\space}\@abstrak
+    \vspace{12pt}
+    \par
 }
+
+% Kata Kunci Bahasa Indonesia
+\ifthenelse{\equal{\@katakunci}{\@empty}}{}{
+    \noindent\textbf{\textit{Kata Kunci:}\space}\@katakunci
+    \vspace{12pt}
+    \par
+}
+
+\ifthenelse{\equal{\@abstract}{\@empty}}{}{
+    \noindent\textbf{\textit{Abstract:}}\space\textit{\@abstract}
+    \vspace{12pt}
+    \par
+}
+
+\ifthenelse{\equal{\@keyword}{\@empty}}{}{
+    \noindent\textbf{\textit{Keywords:}}\space\textit{\@keyword}
+    \vspace{12pt}
+    \par
+}
+
 \ifthenelse{\equal{\@encyclopediadef}{\@empty}}{}{
 	\noindent\textbf{Definition:\space}\@encyclopediadef
 	\vspace{12pt}
@@ -1110,13 +1134,7 @@
 	\vspace{12pt}
 	\par
 }
-%
-%11
-\ifthenelse{\equal{\@keyword}{\@empty}}{}{
-	\noindent\textbf{Keywords:\space}\@keyword
-	\vspace{12pt}
-	\par
-}
+
 %11
 %For journal Toxins:
 \ifthenelse{\equal{\@keycontribution}{\@empty}}{}{
