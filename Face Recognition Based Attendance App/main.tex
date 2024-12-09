@@ -1,0 +1,61 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{subcaption}
+
+% Pengaturan heading
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-30pt}{20pt}
+
+\begin{document}
+
+% Cover
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    
+    \includegraphics[width=0.2\textwidth]{images/logo_unhas.png}\\ % Logo Unhas
+    \vspace{1cm}
+    
+    {\Large \textbf{Laporan Project Akhir}}\\
+    \vspace{0.5cm}
+    {\Large \textbf{Sistem Informasi Cerdas}}\\
+    
+    \vfill
+    Disusun oleh:
+    
+    \begin{tabbing}
+        Minhajul Yusri Khairi \hspace{3cm} \= H071221006 \\
+        Nurul Alya \> H071221009 \\
+        Kelvin Leonardo Sianipar \> H071221020 \\
+        Trisman Tegar Wiratama \> H071221023 \\
+        Joy Abrian Rantepasang \> H071221030 \\
+        Izzata Clarissa Salsabila \> H071221065 \\
+        Mifthahul Hoiri Bachrudin Basir \> H071221072 \\
+        % Tambahkan anggota sesuai kebutuhan
+    \end{tabbing}
+    
+    \vfill
+    
+    \textbf{Universitas Hasanuddin}\\
+    \textbf{Makassar, Indonesia}\\
+    \textbf{\today}
+    
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% Include chapters from the "chapters" folder
+\input{chapters/chapter1}
+\input{chapters/chapter2}
+\input{chapters/chapter3}
+\input{chapters/chapter4}
+\input{chapters/chapter5}
+\input{chapters/appendix}
+
+\end{document}
